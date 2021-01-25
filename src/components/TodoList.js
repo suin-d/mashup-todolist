@@ -1,6 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useTodoState } from "../TodoContext";
 import TodoItem from "./TodoItem";
 
 const TodoListBlock = styled.div`
@@ -11,7 +11,7 @@ const TodoListBlock = styled.div`
 `;
 
 export default function TodoList() {
-  const todos = useTodoState();
+  const { todos } = useSelector((state) => state); // initialTodos의 todos를 가져옴
   return (
     <TodoListBlock>
       {todos.map((todo) => (

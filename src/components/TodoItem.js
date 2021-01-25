@@ -1,7 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
-import { useTodoDispatch } from "../TodoContext";
+import { useDispatch } from "react-redux";
+import { removeTodo, toggleTodo } from "../modules/todos/todos";
 
 const CheckCircle = styled.div`
   width: 32px;
@@ -59,18 +60,11 @@ const TodoItemBlock = styled.div`
 `;
 
 function TodoItem({ id, done, text }) {
-  const dispatch = useTodoDispatch();
+  const dispatch = useDispatch();
 
-  const onToggle = () =>
-    dispatch({
-      type: "TOGGLE",
-      id,
-    });
-  const onRemove = () =>
-    dispatch({
-      type: "REMOVE",
-      id,
-    });
+  const onToggle = () => dispatch(toggleTodo(id));
+
+  const onRemove = () => dispatch(removeTodo(id));
 
   return (
     <TodoItemBlock>

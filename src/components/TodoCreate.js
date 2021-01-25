@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
-import { useTodoDispatch, useTodoNextId } from "../TodoContext";
+import { addTodo } from "../modules/todos/todos";
+import { useDispatch } from "react-redux";
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -75,29 +76,18 @@ const Input = styled.input`
 `;
 
 function TodoCreate() {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-
-  const dispatch = useTodoDispatch();
-  const nextId = useTodoNextId();
 
   const onToggle = () => setOpen(!open);
   const onChange = (e) => setValue(e.target.value);
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(value);
-    dispatch({
-      type: "CREATE",
-      todo: {
-        id: nextId.current,
-        text: value,
-        done: false,
-      },
-    });
+    dispatch(addTodo(value));
     setValue("");
     setOpen(false);
-
-    nextId.current += 1;
   };
   return (
     <>

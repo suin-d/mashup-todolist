@@ -1,6 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useTodoState } from "../TodoContext";
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
@@ -29,7 +29,8 @@ const TodoHeadBlock = styled.div`
 `;
 
 function TodoHead() {
-  const todos = useTodoState(); // 커스텀 훅 사용해 todos 가져오기
+  const { todos } = useSelector((state) => state);
+
   const undoneTasks = todos.filter((todo) => !todo.done); // done값이 false인 값 가져오기
 
   const today = new Date();
